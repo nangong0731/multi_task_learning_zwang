@@ -1,6 +1,7 @@
-import  datetime
+import datetime
+import random
 
-def __get_date_list(last_date, d):
+def get_date_list(last_date, d):
     '''
     :param last_date: the last day we need
     :param d: date interval between the earliest date and last date
@@ -24,3 +25,20 @@ def train_valid_date_split(date_list, valid_days, num_split):
     :param num_split: how many partition we need in train data set
     :return: validation date set, and a list of train_date set
     '''
+    validation_date_list = date_list[-valid_days:]
+
+    random.seed(1024)
+    tmp_train = date_list[: -valid_days]
+    random.shuffle(tmp_train)
+
+    d = len(tmp_train) // num_split # in this way may lose some days in train dates set
+    low = 0
+    quick = d
+    train_date_list = []
+    while quick <= len(tmp_train):
+        train_date_list.append(tmp_train[low: quick])
+        low = quick
+        quick += d
+
+    return validation_date_list, train_date_list
+
