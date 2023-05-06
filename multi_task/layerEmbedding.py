@@ -1,7 +1,7 @@
+import tensorflow as tf
 from tensorflow.keras import layers
 from tensorflow.keras import regularizers
 from tensorflow.keras import initializers
-import tensorflow as tf
 
 class orderEmbedLayer(layers.Layer):
     def __init__(self, order_dict_size=1, embed_dim1=1, embed_reg=1, **kwargs):
@@ -98,7 +98,7 @@ class numEmbedLayer(layers.Layer):
 
         cate_num_embed = layers.concatenate([item_embed, user_embed], axis = -1)
 
-        return  cate_num_embed
+        return cate_num_embed
 
     def get_config(self):
         config = {'onehot_dim': self.onehot_dim,
